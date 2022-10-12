@@ -45,7 +45,7 @@ function init(){
     function addOutput(e){
         console.log(e.target.val);
         let char = e.target.val;
-        output.value += char;
+        output.value += char; 
         
     }
 
