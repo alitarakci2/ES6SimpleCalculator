@@ -6,6 +6,9 @@ const spec = ['*','/','+','-']; //special function keys
 function init(){
     document.title = "Javascript Project";
     console.log('ready')
+    let dec = false;
+    let eva = false;
+
     const container = document.createElement('div');
     container.classList.add('container');
     container.style.maxWidth = '600px';
@@ -27,6 +30,31 @@ function init(){
         //console.log(val);
         btnMaker(val,addOutput);
     })
+    btnMaker('=',evalOutput);
+    btnMaker('C',clrOutput);
+
+    function cOutput(v){
+        output.style.border = v + ' 1px solid';
+        output.style.color = v;
+    }
+
+    function evalOutput(){
+        cOutput('black');
+        if(output.value ===""){
+            cOutput('red');
+        }else if(eva){
+            cOutput('red');
+            
+        }else{
+            output.value = eval(output.value);
+        }
+        dec = output.value.includes('.');
+    }
+    function clrOutput(){
+        cOutput('black');
+
+        output.value = "";
+    }
 
     function btnMaker(txt,myFunction){
 
@@ -43,9 +71,29 @@ function init(){
     }
 
     function addOutput(e){
-        console.log(e.target.val);
+        
+        cOutput('black');
+
+        //console.log(e.target.val);
         let char = e.target.val;
-        output.value += char; 
+
+        if(char == '.'){
+            if(dec){
+                char = '';
+            cOutput('red');
+
+            }else{
+                dec = true;
+            }
+        }
+        eva = spec.includes(char);
+        if(eva){
+            dec =false;
+        }
+        output.value += char;
+      
+       
+        
         
     }
 
